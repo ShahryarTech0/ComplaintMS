@@ -1,11 +1,8 @@
 ﻿using MediatR;
 using MerchantApplication;
+        // ✅ Application layer
+using MerchantInfrastructure;     // ✅ Infrastructure layer
 using MerchantApplication.Interfaces;
-using MerchantInfrastructure;
-using MerchantInfrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,8 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// ✅ Add these
+
+
 // ✅ Register Application Layer
 builder.Services.AddApplication();
+
+
 
 builder.Services.AddPersistence(builder.Configuration);
 // ✅ Register MediatR — register all handlers in the Application assembly

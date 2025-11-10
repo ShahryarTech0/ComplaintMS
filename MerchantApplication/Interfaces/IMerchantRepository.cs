@@ -12,5 +12,9 @@ namespace MerchantApplication.Interfaces
         Task<Merchant> AddAsync(Merchant entity);
 
         Task<Merchant> GetByIdAsync(int id);
+
+        Task<Merchant> UpdateAsync(Merchant entity);
+
+        Task<Merchant> DeleteAsync(Merchant entity);
     }
 }
