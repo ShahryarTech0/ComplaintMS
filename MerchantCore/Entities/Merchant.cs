@@ -1,6 +1,7 @@
 ﻿using MerchantCore.Comman;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace MerchantCore.Entities
 {
     public class Merchant : BaseEntity
     {
+        [Key]
         public int ID { get; set; }
         public string? MerchantCode { get; set; }
         public string? MerchantName { get; set; }
@@ -22,5 +24,10 @@ namespace MerchantCore.Entities
 
         public int Area { get; set; }
         public int Zone { get; set; }
+
+
+        // Navigation property - one merchant has many locations
+        public ICollection<MerchantLocation> merchantlocations { get; set; }
+
     }
 }

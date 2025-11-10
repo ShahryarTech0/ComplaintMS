@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MerchantApplication.Interfaces;
 using MerchantInfrastructure.Repositories;
+using MerchantApplication.Features.MerchantLocations.Interfaces;
+using MerchantInfrastructure.MerchantLocationRepositories;
 namespace MerchantInfrastructure
 {
     public static class DependencyInjection
@@ -19,9 +21,11 @@ namespace MerchantInfrastructure
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("AppDb")));
 
-            // 🔹 Register Repository
+            // 🔹 Register Merchant Repository
             services.AddScoped<IMerchantRepository, MerchantRepository>();
 
+            // 🔹 Register MerchantLocation Repository
+            services.AddScoped<IMerchantLocationRepository, MerchantLocationRepository>();
             return services;
         }
     }

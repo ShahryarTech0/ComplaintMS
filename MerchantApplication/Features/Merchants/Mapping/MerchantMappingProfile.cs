@@ -15,12 +15,9 @@ namespace MerchantApplication.Features.Merchants.Mapping
     {
         public MerchantMappingProfile()
         {
-            CreateMap<AddMerchantCommand, Merchant>();
-            CreateMap<UpdateMerchantCommand, Merchant>();
-
-            // ✅ Create mappings for Delete (if needed)
-            // Usually Delete only needs MerchantId, but we can still define it
-            CreateMap<DeleteMerchantCommand, Merchant>();
+            CreateMap<AddMerchantCommand, Merchant>().ReverseMap();
+            CreateMap<UpdateMerchantCommand, Merchant>().ReverseMap();
+            CreateMap<DeleteMerchantCommand, Merchant>().ReverseMap();
             CreateMap<Merchant, MerchantDto>();
         }
     }

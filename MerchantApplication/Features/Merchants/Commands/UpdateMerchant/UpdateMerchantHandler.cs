@@ -25,20 +25,27 @@ namespace MerchantApplication.Features.Merchants.Commands.UpdateMerchant
         }
         public async Task<ApiResponse<MerchantDto>> Handle(UpdateMerchantCommand request, CancellationToken cancellationToken)
         {
-            var existingMerchant = await _merchantRepository.GetByIdAsync(request.ID);
-            if (existingMerchant == null)
-                return ApiResponse<MerchantDto>.Fail("404", "Merchant not found.");
+            try
+            {
+                var existingMerchant = await _merchantRepository.GetByIdAsync(request.ID);
+                if (existingMerchant == null)
+                    return ApiResponse<MerchantDto>.Fail("0", "Merchant not found.");
 
-            // ✅ Step 2: Map updated values onto tracked entity
-            _mapper.Map(request, existingMerchant);
+                // ✅ Step 2: Map updated values onto tracked entity
+                _mapper.Map(request, existingMerchant);
 
-            // ✅ Step 3: Save changes
-            await _merchantRepository.UpdateAsync(existingMerchant);
+                // ✅ Step 3: Save changes
+                await _merchantRepository.UpdateAsync(existingMerchant);
 
-            // ✅ Step 4: Map to DTO for response
-            var responseDto = _mapper.Map<MerchantDto>(existingMerchant);
+                // ✅ Step 4: Map to DTO for response
+                var responseDto = _mapper.Map<MerchantDto>(existingMerchant);
 
-            return ApiResponse<MerchantDto>.Success(responseDto);
+                return ApiResponse<MerchantDto>.Success(responseDto);
+            }
+            catch (Exception)
+            {
+                return ApiResponse<MerchantDto>.Fail("400", "An error occurred while adding the merchant.");
+            }
 
         }
     }

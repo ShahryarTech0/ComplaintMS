@@ -17,6 +17,7 @@ namespace MerchantApplication.Features.Merchants.Dto
         public string? Number { get; set; }
         public string? OtherNumber { get; set; }
         public string City { get; set; } = string.Empty;
+       // public int? ParentID { get; set; }
         public int Area { get; set; }
         public int Zone { get; set; }
         public string? Status { get; set; }

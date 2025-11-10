@@ -17,4 +17,8 @@
     <ProjectReference Include="..\MerchantCore\MerchantCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\MerchantLocations\Queries\GetMerchantZones\" />
+  </ItemGroup>
+
 </Project>

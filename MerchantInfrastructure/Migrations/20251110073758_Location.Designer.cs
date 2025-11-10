@@ -4,6 +4,7 @@ using MerchantInfrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MerchantInfrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251110073758_Location")]
+    partial class Location
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,9 +121,6 @@ namespace MerchantInfrastructure.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MerchantId")
-                        .HasColumnType("int");
-
                     b.Property<string>("OtherEmail")
                         .HasColumnType("nvarchar(max)");
 
@@ -136,7 +136,7 @@ namespace MerchantInfrastructure.Migrations
                     b.Property<string>("POCNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParentID")
+                    b.Property<int>("ParentID")
                         .HasColumnType("int");
 
                     b.Property<string>("Remarks")
@@ -156,25 +156,7 @@ namespace MerchantInfrastructure.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MerchantId");
-
                     b.ToTable("MerchantLocations");
-                });
-
-            modelBuilder.Entity("MerchantCore.Entities.MerchantLocation", b =>
-                {
-                    b.HasOne("MerchantCore.Entities.Merchant", "Merchant")
-                        .WithMany("merchantlocations")
-                        .HasForeignKey("MerchantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Merchant");
-                });
-
-            modelBuilder.Entity("MerchantCore.Entities.Merchant", b =>
-                {
-                    b.Navigation("merchantlocations");
                 });
 #pragma warning restore 612, 618
         }

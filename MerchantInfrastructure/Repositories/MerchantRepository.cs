@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MerchantCore.Entities;
-using MerchantApplication.Interfaces;
 namespace MerchantInfrastructure.Repositories
 {
     public class MerchantRepository : IMerchantRepository

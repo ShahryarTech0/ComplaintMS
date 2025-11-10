@@ -31,18 +31,18 @@ namespace MerchantApplication.Features.Merchants.Commands.AddMerchant
                 var merchantEntity = _mapper.Map<Merchant>(request);
                 if (merchantEntity == null)
                 {
-                    return ApiResponse<MerchantDto>.Fail("500", "Invalid merchant data.");
+                    return ApiResponse<MerchantDto>.Fail("0", "Invalid merchant data.");
                 }
 
                 await _merchantRepository.AddAsync(merchantEntity);
 
                 var merchantDto = _mapper.Map<MerchantDto>(merchantEntity);
 
-                return ApiResponse<MerchantDto>.Success(merchantDto, "201", "Merchant added successfully.");
+                return ApiResponse<MerchantDto>.Success(merchantDto);
             }
             catch (Exception)
             {
-                return ApiResponse<MerchantDto>.Fail("500", "An error occurred while adding the merchant.");
+                return ApiResponse<MerchantDto>.Fail("400", "An error occurred while adding the merchant.");
             }
         }
     }

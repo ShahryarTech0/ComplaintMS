@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MerchantApplication.Features.Merchants.Dto;
 using MerchantApplication.Shared;
 using System;
 using System.Collections.Generic;

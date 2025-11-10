@@ -27,7 +27,7 @@ public class ApiResponse<T>
         return new ApiResponse<T>(code, msg, true, data);
     }
 
-    public static ApiResponse<T> Fail(string code = "500", string msg = "Failed")
+    public static ApiResponse<T> Fail(string code = "0", string msg = "Failed")
     {
         return new ApiResponse<T>(code, msg, false, default);
     }
