@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MerchantApplication.Features.MerchantLocations.Interfaces;
+using MerchantApplication.Features.MerchantLocations.Dto;
+using MerchantApplication.Shared;
 namespace MerchantInfrastructure.MerchantLocationRepositories
 {
     public class MerchantLocationRepository : IMerchantLocationRepository
@@ -30,5 +32,26 @@ namespace MerchantInfrastructure.MerchantLocationRepositories
             await _context.SaveChangesAsync();
             return entity;
         }
+        public async Task<MerchantLocation> SoftDeleteAsync(MerchantLocation entity)
+        {
+            _context.MerchantLocations.Remove(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        public async Task<MerchantLocation> UpdateZoneAsync(MerchantLocation entity)
+        {
+             _context.MerchantLocations.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task<IEnumerable<MerchantLocation>> GetAllZonesAsync()
+        {
+            return await _context.MerchantLocations
+                                 .Include(l => l.Merchant) // optional
+                                 .ToListAsync();
+        }
+
+
     }
 }

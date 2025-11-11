@@ -16,5 +16,7 @@ namespace MerchantApplication.Interfaces
         Task<Merchant> UpdateAsync(Merchant entity);
 
         Task<Merchant> DeleteAsync(Merchant entity);
+
+        Task<IEnumerable<Merchant>> GetAllAsync();
     }
 }

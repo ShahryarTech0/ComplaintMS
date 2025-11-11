@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using MerchantApplication.Features.MerchantLocations.Commands.AddMerchantLocation;
+using MerchantApplication.Features.MerchantLocations.Commands.DeleteMerchantLocation;
+using MerchantApplication.Features.MerchantLocations.Commands.UpdateMerchantLocation;
 using MerchantApplication.Features.MerchantLocations.Dto;
 using MerchantApplication.Features.Merchants.Commands.AddMerchant;
 using MerchantApplication.Features.Merchants.Commands.DeleteMerchant;
@@ -45,6 +47,11 @@ namespace MerchantApplication.Features.MerchantLocations.Mapping
                 .ForMember(dest => dest.POCNumber, opt => opt.MapFrom(src => src.POCNumber))
                 .ForMember(dest => dest.OtherEmail, opt => opt.MapFrom(src => src.OtherEmail))
                 .ForMember(dest => dest.OtherNumber, opt => opt.MapFrom(src => src.OtherNumber));
+
+
+
+            CreateMap<UpdateMerchantLocationCommand, MerchantLocation>().ReverseMap();
+            CreateMap<DeleteMerchantLocationCommand, MerchantLocation>().ReverseMap();
         }
     }
 }

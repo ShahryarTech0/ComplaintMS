@@ -12,8 +12,11 @@ namespace MerchantApplication.Features.MerchantLocations.Interfaces
 
         Task<MerchantLocation> GetZoneByID(int id);
 
-        //Task<MerchantLocation> UpdateZoneAsync(MerchantLocation entity);
+        Task<MerchantLocation> UpdateZoneAsync(MerchantLocation entity);
 
-        //Task<MerchantLocation> DeleteZoneAsync(MerchantLocation entity);
+        Task<MerchantLocation> SoftDeleteAsync(MerchantLocation entity);
+
+        Task<IEnumerable<MerchantLocation>> GetAllZonesAsync();
+
     }
 }

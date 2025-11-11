@@ -43,5 +43,10 @@ namespace MerchantInfrastructure.Repositories
             return entity;
         }
 
+        public async Task<IEnumerable<Merchant>> GetAllAsync()
+        {
+            return await _context.Merchants.ToListAsync();
+        }
+
     }
 }

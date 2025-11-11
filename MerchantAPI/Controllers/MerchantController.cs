@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using MerchantApplication.Features.MerchantLocations.Queries.GetMerchantZones;
+using MerchantApplication.Features.Merchants.Commands.AddMerchant;
+using MerchantApplication.Features.Merchants.Commands.DeleteMerchant;
+using MerchantApplication.Features.Merchants.Commands.UpdateMerchant;
+using MerchantApplication.Features.Merchants.Queries.GetAllMerchant;
+using MerchantApplication.Features.Merchants.Queries.GetMerchantById;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MerchantApplication.Features.Merchants.Commands.AddMerchant;
-using MerchantApplication.Features.Merchants.Queries.GetMerchantById;
-using MerchantApplication.Features.Merchants.Commands.UpdateMerchant;
-using MerchantApplication.Features.Merchants.Commands.DeleteMerchant;
 namespace MerchantAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -43,6 +45,12 @@ namespace MerchantAPI.Controllers
         public async Task<IActionResult> DeleteMerchant(int id)
         {
             var result = await _mediator.Send(new DeleteMerchantCommand(id));
+            return Ok(result);
+        }
+        [HttpGet("getallMerchant")]
+        public async Task<IActionResult> GetAllMerchant()
+        {
+            var result = await _mediator.Send(new GetAllMerchantQuery());
             return Ok(result);
         }
     }

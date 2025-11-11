@@ -24,6 +24,17 @@ namespace MerchantInfrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Configure MerchantLocation
+            modelBuilder.Entity<MerchantLocation>()
+                .HasKey(l => l.ID); // primary key
+
+            // Make ID auto-increment
+            modelBuilder.Entity<MerchantLocation>()
+                .Property(l => l.ID)
+                .ValueGeneratedOnAdd();
+
+
+            //
             modelBuilder.Entity<MerchantLocation>()
                 .HasOne(l => l.Merchant)          // each location has one merchant
                 .WithMany(m => m.merchantlocations)       // one merchant has many locations
