@@ -17,4 +17,8 @@
     <ProjectReference Include="..\MerchantCore\MerchantCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\AuthenticationJwt\Queries\" />
+  </ItemGroup>
+
 </Project>

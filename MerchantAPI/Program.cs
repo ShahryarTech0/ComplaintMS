@@ -1,11 +1,40 @@
 ﻿using MediatR;
 using MerchantApplication;
+using MerchantApplication.Interfaces;
         // ✅ Application layer
 using MerchantInfrastructure;     // ✅ Infrastructure layer
-using MerchantApplication.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// ✅ Load JWT key securely
+var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
+             ?? builder.Configuration["AppSettings:Jwt:Key"]; // fallback to appsettings.json
+
+if (string.IsNullOrEmpty(jwtKey))
+    throw new Exception("JWT secret key is missing! Set JWT_SECRET_KEY env variable or appsettings.json.");
+
+// ✅ Configure Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+
 
 // ✅ Add Controllers and Swagger
 builder.Services.AddControllers();

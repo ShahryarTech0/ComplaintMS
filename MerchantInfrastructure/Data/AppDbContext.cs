@@ -15,9 +15,9 @@ namespace MerchantInfrastructure.Data
         }
         public DbSet<Merchant> Merchants { get; set; }
         public DbSet<MerchantLocation> MerchantLocations { get; set; }
+        public DbSet<ManagementHierarchy> ManagementHierarchies { get; set; }
 
-
-
+        public DbSet<User> Users { get; set; }
 
 
 

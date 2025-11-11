@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchantInfrastructure", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MerchantCore", "MerchantCore\MerchantCore.csproj", "{2C8EDE20-EDF5-4A52-A580-D7F43DFDC691}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationManager", "AuthenticationManager\AuthenticationManager.csproj", "{12D81ADA-59B4-44DA-A5CF-53995E72BB67}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{2C8EDE20-EDF5-4A52-A580-D7F43DFDC691}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C8EDE20-EDF5-4A52-A580-D7F43DFDC691}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C8EDE20-EDF5-4A52-A580-D7F43DFDC691}.Release|Any CPU.Build.0 = Release|Any CPU
-		{12D81ADA-59B4-44DA-A5CF-53995E72BB67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{12D81ADA-59B4-44DA-A5CF-53995E72BB67}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{12D81ADA-59B4-44DA-A5CF-53995E72BB67}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{12D81ADA-59B4-44DA-A5CF-53995E72BB67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

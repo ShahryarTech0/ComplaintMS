@@ -11,6 +11,11 @@ using MerchantApplication.Interfaces;
 using MerchantInfrastructure.Repositories;
 using MerchantApplication.Features.MerchantLocations.Interfaces;
 using MerchantInfrastructure.MerchantLocationRepositories;
+using MerchantApplication.Features.ManagementHierarchies.Interface;
+using MerchantInfrastructure.ManagementHierarchyReositories;
+using MerchantApplication.Features.AuthenticationJwt.Interface;
+using MerchantInfrastructure.AuthenticationRepositories;
+
 namespace MerchantInfrastructure
 {
     public static class DependencyInjection
@@ -26,6 +31,13 @@ namespace MerchantInfrastructure
 
             // 🔹 Register MerchantLocation Repository
             services.AddScoped<IMerchantLocationRepository, MerchantLocationRepository>();
+
+
+            // 🔹 Register ManagementHierarchy Repository
+            services.AddScoped<IManagementHierarchy, ManagementHierarchyRepository>();
+
+            // 🔹 Register Authentication Repository
+            services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
             return services;
         }
     }
