@@ -60,6 +60,10 @@ namespace MerchantApplication.Features.AuthenticationJwt.Commands.LoginUser
                 OccurredAt = DateTimeOffset.UtcNow
             };
 
+            // Send notification to all users
+            await notification.NotifyAllAsync(notify);
+
+
             await this.notification.NotifyAllAsync(notify);
             // ✅ Return proper response
             return ApiResponse<TokenResponseDto>.Success(tokenDto);

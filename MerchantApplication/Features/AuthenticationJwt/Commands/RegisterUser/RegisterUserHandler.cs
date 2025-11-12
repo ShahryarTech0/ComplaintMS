@@ -39,15 +39,18 @@ namespace MerchantApplication.Features.AuthenticationJwt.Commands.RegisterUser
                 return ApiResponse<User>.Fail("0", "Username already exists");
 
             // 4️⃣ Create a notification
-            var notification = new Notification
+            var notify = new Notification
             {
                 Title = "User Registered",
-                Message = $"User '{registeredUser.Username}' registered successfully.",
+                Message = $"User '{registeredUser.Username}' registered successfully",
                 OccurredAt = DateTimeOffset.UtcNow
             };
 
+            await _notificationService.NotifyAllAsync(notify);
+
+
             // 5️⃣ Send notification through SignalR
-            await _notificationService.NotifyAllAsync(notification);
+           
 
             // 6️⃣ Return successful API response
             return ApiResponse<User>.Success(registeredUser);

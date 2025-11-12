@@ -12,6 +12,22 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ✅ Add CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://127.0.0.1:5500") // frontend Live Server
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
+builder.Services.AddSignalR();
+
+
 // ✅ Load JWT key securely
 var jwtKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
              ?? builder.Configuration["AppSettings:Jwt:Key"]; // fallback to appsettings.json
@@ -71,6 +87,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+// ✅ Important: Use CORS BEFORE routing / MapHub
+app.UseCors("AllowFrontend");
+
 
 app.UseAuthentication();
 app.UseAuthorization();
