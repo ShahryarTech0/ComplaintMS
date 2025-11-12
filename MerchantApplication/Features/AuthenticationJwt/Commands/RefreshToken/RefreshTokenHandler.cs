@@ -1,39 +1,48 @@
-﻿using AutoMapper;
-using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using MerchantApplication.Features.AuthenticationJwt.Dto;
 using MerchantApplication.Features.AuthenticationJwt.Interface;
 using MerchantApplication.Shared;
 using MerchantCore.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
 namespace MerchantApplication.Features.AuthenticationJwt.Commands.RefreshToken
 {
     public class RefreshTokenHandler : IRequestHandler<RefreshTokenCommand, ApiResponse<TokenResponseDto>>
     {
         private readonly IAuthenticationRepository _repo;
-        private readonly IMapper _mapper;
-        public RefreshTokenHandler(IAuthenticationRepository repo, IMapper mapper)
+
+        public RefreshTokenHandler(IAuthenticationRepository repo)
         {
             _repo = repo;
-            _mapper = mapper;
         }
-
 
         public async Task<ApiResponse<TokenResponseDto>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            // Map RefreshTokenResponseDto -> User entity
-            var userEntity = _mapper.Map<User>(request.RefreshDto);
+            // 1️⃣ Fetch user from DB by userId and refresh token
+            var userFromDb = await _repo.GetUserByIdAndRefreshTokenAsync(request.RefreshDto.UserId, request.RefreshDto.RefreshToken);
 
-            var updatedUser = await _repo.RefreshTokenAsync(userEntity);
-
-            if (updatedUser == null)
+            if (userFromDb == null)
                 return ApiResponse<TokenResponseDto>.Fail("0", "Invalid refresh token");
 
-            var tokenDto = _mapper.Map<TokenResponseDto>(updatedUser);
+            // 2️⃣ Generate new access token and refresh token
+            var newAccessToken = await _repo.GenerateAccessTokenAsync(userFromDb);
+            var newRefreshToken = await _repo.GenerateRefreshTokenAsync(userFromDb);
+
+            // 3️⃣ Save new refresh token in DB
+            userFromDb.RefreshToken = newRefreshToken;
+            userFromDb.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7); // example expiry
+            await _repo.RefreshTokenAsync(userFromDb);
+
+            // 4️⃣ Return tokens
+            var tokenDto = new TokenResponseDto
+            {
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken,
+                UserId = userFromDb.Id,
+                Username = userFromDb.Username
+            };
 
             return ApiResponse<TokenResponseDto>.Success(tokenDto);
         }

@@ -15,7 +15,8 @@ using MerchantApplication.Features.ManagementHierarchies.Interface;
 using MerchantInfrastructure.ManagementHierarchyReositories;
 using MerchantApplication.Features.AuthenticationJwt.Interface;
 using MerchantInfrastructure.AuthenticationRepositories;
-
+using MerchantApplication.Features.SignalR.Interface;
+using MerchantInfrastructure.NotificationRepositories;
 namespace MerchantInfrastructure
 {
     public static class DependencyInjection
@@ -38,6 +39,12 @@ namespace MerchantInfrastructure
 
             // 🔹 Register Authentication Repository
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+
+        
+            // 🔹 Register SignalR Repository
+            services.AddScoped<INotificationService, SignalRNotificationService>();
+            //
+            services.AddSignalR();
             return services;
         }
     }

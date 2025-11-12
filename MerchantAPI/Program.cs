@@ -1,8 +1,11 @@
 ﻿using MediatR;
 using MerchantApplication;
+using MerchantApplication.Features.SignalR.Interface;
+using MerchantApplication.Hubs;
 using MerchantApplication.Interfaces;
         // ✅ Application layer
 using MerchantInfrastructure;     // ✅ Infrastructure layer
+using MerchantInfrastructure.NotificationRepositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -58,7 +61,6 @@ builder.Services.AddMediatR(cfg =>
 
 // ✅ Register AutoMapper (optional)
 builder.Services.AddAutoMapper(typeof(MerchantApplication.AssemblyMarker));
-
 var app = builder.Build();
 
 // ✅ Middleware pipeline
@@ -74,5 +76,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+//app.MapHub<MerchantApplication.Hubs.NotificationHub>("/notificationHub");
+
+app.MapHub<NotificationHub>("/notificationHub"); // 👈 important
 
 app.Run();

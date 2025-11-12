@@ -21,5 +21,10 @@ namespace MerchantApplication.Features.AuthenticationJwt.Interface
         Task<User?> RegisterAsync(User user);
         Task<User?> RefreshTokenAsync(User user);
         Task<User?> LoginAsync(User user);
+        Task<string> GenerateAccessTokenAsync(User user);
+        Task<string> GenerateRefreshTokenAsync(User user);
+        Task<User?> GetUserByIdAndRefreshTokenAsync(int userId, string refreshToken);
+
+
     }
 }
