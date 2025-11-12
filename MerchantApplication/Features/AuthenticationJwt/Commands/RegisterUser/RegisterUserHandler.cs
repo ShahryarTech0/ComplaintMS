@@ -49,8 +49,10 @@ namespace MerchantApplication.Features.AuthenticationJwt.Commands.RegisterUser
             await _notificationService.NotifyAllAsync(notify);
 
 
-            // 5️⃣ Send notification through SignalR
-           
+            //  Send to specific user (the one who just logged in)
+            //await _notificationService.NotifyUserAsync(userFromDb.Id.ToString(), notify);
+
+
 
             // 6️⃣ Return successful API response
             return ApiResponse<User>.Success(registeredUser);

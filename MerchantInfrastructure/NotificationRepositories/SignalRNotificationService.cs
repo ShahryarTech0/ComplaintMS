@@ -29,5 +29,6 @@ namespace MerchantInfrastructure.NotificationRepositories
             // If you track connection IDs or user identifiers, send to specific user
             return _hubContext.Clients.User(userId).SendAsync("ReceiveNotification", notification);
         }
+
     }
 }

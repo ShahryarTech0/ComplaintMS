@@ -63,8 +63,10 @@ namespace MerchantApplication.Features.AuthenticationJwt.Commands.LoginUser
             // Send notification to all users
             await notification.NotifyAllAsync(notify);
 
+            // 3️⃣ Send to specific user (the one who just logged in)
+            //await notification.NotifyUserAsync(userFromDb.Id.ToString(), notify);
 
-            await this.notification.NotifyAllAsync(notify);
+            //await this.notification.NotifyAllAsync(notify);
             // ✅ Return proper response
             return ApiResponse<TokenResponseDto>.Success(tokenDto);
         }
